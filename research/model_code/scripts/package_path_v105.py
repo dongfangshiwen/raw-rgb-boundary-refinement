@@ -78,7 +78,7 @@ Use the road manuscript route for the two Cityscapes models. Use road_manuscript
 
 ## Rerun in the original project workspace
 
-The experiment scripts live under colorawarenet-joint-model/scripts, beside the existing project. The benchmark_data, experiment_exports and project directories are siblings. Use the CUDA interpreter in the project's .venv. The source sampler and archival manuscript weights depend on earlier project assets. Check training.json and manuscript-extension/training.json for their source hashes, and the population manifests for the pinned dataset provenance.
+The experiment scripts live under research/model_code/scripts in the public repository. Stage benchmark_data alongside model_code and experiment_exports under research/. Use the CUDA interpreter in the project's .venv. The source sampler and archival manuscript weights depend on earlier project assets. Check training.json and manuscript-extension/training.json for their source hashes, and the population manifests for the pinned dataset provenance.
 
 Stage one training uses scripts.train_path_v104 and target inference uses scripts.eval_path_v104. Stage two uses scripts.train_anchor_v105, scripts.eval_anchor_v105, and scripts.check_anchor_v105. The coverage report uses every scored frame. Percent intervals resample acquisition groups and average the three seed scores within each draw. Unknown labels are ignored and absent fixed classes contribute zero; GT-supported sensitivity is included separately.
 """

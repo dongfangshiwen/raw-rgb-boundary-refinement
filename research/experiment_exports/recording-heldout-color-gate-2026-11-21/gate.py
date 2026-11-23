@@ -10,7 +10,7 @@ from torch.nn import functional as F
 
 OUT = Path(__file__).resolve().parent
 PROJECT = OUT.parents[1]
-sys.path.insert(0, str(PROJECT / "colorawarenet-joint-model"))
+sys.path.insert(0, str(PROJECT / "model_code"))
 from scripts import eval_range_v101 as ev
 from scripts.fit_native_guide_v102 import author_loader, boundary_band
 

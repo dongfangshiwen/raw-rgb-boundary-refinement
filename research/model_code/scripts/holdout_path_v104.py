@@ -97,7 +97,7 @@ def rank():
     from torchvision.models import mobilenet_v3_small,MobileNet_V3_Small_Weights
     torch.set_num_threads(5)
     model=mobilenet_v3_small(weights=None).eval()
-    weight=io.WORK/"colorawarenet-joint-model/pretrained/mobilenet-v3-small/model.pth"
+    weight=io.WORK/"model_code/pretrained/mobilenet-v3-small/model.pth"
     model.load_state_dict(torch.load(weight,map_location="cpu",weights_only=True))
     pre=MobileNet_V3_Small_Weights.DEFAULT.transforms()
     @torch.inference_mode()

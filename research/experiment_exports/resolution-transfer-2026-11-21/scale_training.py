@@ -36,7 +36,7 @@ def lock():
           "decision":"Call scale-conditioning supported only if by_scale beats both shared and shuffled_scale (paired lower 95% above zero) at primary new 768 endpoint and the second backbone has the same sign against each. Treat independent fitted advantage over original and fixed as a separate test requiring positive lower bounds vs both controls and a positive sign on the other backbone. No new fog generalization claim on the random-weather set. Report signed losses and nulls. Do not tune on these outcomes.",
           "sources":{n:digest(p) for n,p in {"trainer":Path(__file__),"source_loader":PRIOR/"gate.py","reserve":OUT/"reserve.json",
                   "fit":ROOT/"benchmark_data/muses-v70/fit.json","calibrate":ROOT/"benchmark_data/muses-v70/calibrate.json",
-                  "held":ROOT/"benchmark_data/muses-v70/held.json","published_operator":ROOT/"colorawarenet-joint-model/scripts/range_decoder_v101.py"}.items()},
+                  "held":ROOT/"benchmark_data/muses-v70/held.json","published_operator":ROOT/"model_code/scripts/range_decoder_v101.py"}.items()},
           "source_recordings":sorted({r["group"] for r in src["fit"]}),"seeds":list(SEEDS),"scales":list(SIDES)}
     write(OUT/"protocol.json",main,True)
     return digest(OUT/"protocol.json")

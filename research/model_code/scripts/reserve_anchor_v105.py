@@ -95,7 +95,7 @@ def roads():
     io.write(OUT/"bdd.json",{"rows":complete});print("New BDD frames",len(rows),flush=True)
 
 def ade_weights():
-    p=io.WORK/"colorawarenet-joint-model/pretrained/segformer-b0-ade"
+    p=io.WORK/"model_code/pretrained/segformer-b0-ade"
     p.mkdir(exist_ok=True,parents=True);meta=json.loads(bdd.road.fetch(f"https://huggingface.co/api/models/{ADE}/revision/{REV}?blobs=true"))
     assert meta["sha"]==REV;sizes={r["rfilename"]:r for r in meta["siblings"]};records={}
     for f in ("config.json","preprocessor_config.json","model.safetensors"):

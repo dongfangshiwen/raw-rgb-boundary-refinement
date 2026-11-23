@@ -13,7 +13,7 @@ import numpy as np
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
-sys.path.insert(0, str(ROOT / "colorawarenet-joint-model"))
+sys.path.insert(0, str(ROOT / "model_code"))
 from scripts import holdout_path_v104 as history
 
 DATA = ROOT / "benchmark_data/bdd-heldout-2026-11-21"
@@ -128,7 +128,7 @@ def rank():
     from torchvision.models import mobilenet_v3_small,MobileNet_V3_Small_Weights
     torch.set_num_threads(4)
     net=mobilenet_v3_small(weights=None).cuda().eval()
-    w=ROOT/"colorawarenet-joint-model/pretrained/mobilenet-v3-small/model.pth"
+    w=ROOT/"model_code/pretrained/mobilenet-v3-small/model.pth"
     net.load_state_dict(torch.load(w,map_location="cpu",weights_only=True))
     pre=MobileNet_V3_Small_Weights.DEFAULT.transforms()
     @torch.inference_mode()

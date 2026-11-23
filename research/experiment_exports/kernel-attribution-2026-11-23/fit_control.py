@@ -9,7 +9,7 @@ import torch
 import torch.nn.functional as F
 
 HERE = Path(__file__).resolve().parent
-sys.path.insert(0, str(HERE.parent.parent / "colorawarenet-joint-model"))
+sys.path.insert(0, str(HERE.parent.parent / "model_code"))
 from scripts import fit_range_v101 as archived
 from scripts.range_decoder_v101 import RangeDecoder, prepare
 from scripts.restoration_affinity_v75 import boundary_band

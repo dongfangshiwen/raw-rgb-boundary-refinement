@@ -21,7 +21,7 @@ WP_IDS=(1,3,4,9,6,5)
 
 class ADE:
     def __init__(self):
-        folder=WORK/"colorawarenet-joint-model/pretrained/segformer-b0-ade"
+        folder=WORK/"model_code/pretrained/segformer-b0-ade"
         for f,v in read(OUT/"ade-weights.json")["files"].items():assert prior.base.digest(folder/f)==v
         self.net=SegformerForSemanticSegmentation.from_pretrained(str(folder),local_files_only=True,use_safetensors=True).cuda().eval().requires_grad_(False)
         ids={v:int(k) for k,v in self.net.config.id2label.items()}

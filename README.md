@@ -9,7 +9,7 @@ The decoder uses the original camera image to redistribute neighbouring class sc
 | Find the code used for a manuscript table | [Experiment index](EXPERIMENTS.md) · [Table guide with record paths](Table%20guide.csv) |
 | Run the original decoder on a frozen score grid | [Score-grid prediction](predict_scores.py) · [Decoder](experiments/S3/decoder.py) · [Colour range operator](experiments/S3/range_decoder.py) |
 | Predict a mask and restored photograph from one image | [Camera-image predictor](experiments/S2/portable/predict.py) |
-| Train or inspect the source models | [Original RGB and LiDSeg prediction](research/colorawarenet-joint-model/scripts/predict_calibrated_joint_v99.py) · [MUSES refits](research/colorawarenet-joint-model/scripts/fit_range_v101.py) |
+| Train or inspect the source models | [Original RGB and LiDSeg prediction](research/model_code/scripts/predict_calibrated_joint_v99.py) · [MUSES refits](research/model_code/scripts/fit_range_v101.py) |
 | Recalculate reported results from saved counts | [Numerical replay](reproduce.py) · [Published table cells](Published%20table%20cells.csv) |
 | Find hardware and software versions | [Measured CUDA environment](environment.json) |
 
@@ -50,6 +50,6 @@ Choose `segformer` for the second backbone. The public predictor exposes three s
 
 ## Source fitting and external baselines
 
-The [experiment index](EXPERIMENTS.md) connects each current table to its source and evaluator. `research/` preserves the original relative layout for the training modules and the versioned experiment scripts. Research training additionally requires the provider datasets and checkpoints, their manifests, and the staging layout referenced by those scripts. Numerical replay and the two inference entry points above have separate input requirements. The [supplement preparation script](prepare_supplement.py) expands S1–S4 and the nested source diagnostics into a new local directory.
+The [experiment index](EXPERIMENTS.md) connects each current table to its source and evaluator. `research/model_code/` contains the training and model implementations used in the paper, including the RGB decoder, restoration heads and comparison operators. The study-specific scripts in `research/experiment_exports/` import these implementations. For historical source paths in S1–S4, resolve `scripts/` and `dehaze_seg/` relative to `research/model_code/` in this repository. Research training additionally requires the provider datasets and checkpoints, their manifests, and the staging layout referenced by those scripts. Numerical replay and the two inference entry points above have separate input requirements. The [supplement preparation script](prepare_supplement.py) expands S1–S4 and the nested source diagnostics into a new local directory.
 
 Third-party backbones and benchmark assets are distributed by their respective providers. Model revisions and file hashes for the portable predictor are given in its [asset fetcher](experiments/S2/portable/fetch_assets.py). The exact original measurements, auxiliary fits and published baseline inputs are in the manuscript supplement. The included source-fit coefficients are indexed by seeds 101, 211 and 307.

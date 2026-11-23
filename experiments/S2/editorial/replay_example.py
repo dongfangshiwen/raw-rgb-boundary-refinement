@@ -11,7 +11,7 @@ import torch
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("project", type=Path, help="Path to colorawarenet-joint-model")
+    parser.add_argument("project", type=Path, help="Directory containing the scripts package (research/model_code in the repository)")
     parser.add_argument("output", type=Path)
     args = parser.parse_args()
     sys.path.insert(0, str(args.project.resolve()))

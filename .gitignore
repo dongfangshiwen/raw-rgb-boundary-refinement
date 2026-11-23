@@ -6,9 +6,9 @@ __pycache__/
 work/
 assets/
 research/benchmark_data/
-research/colorawarenet-joint-model/results/
-research/colorawarenet-joint-model/runs/
-research/colorawarenet-joint-model/pretrained/
+research/model_code/results/
+research/model_code/runs/
+research/model_code/pretrained/
 *.pth
 *.pt
 *.safetensors

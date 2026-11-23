@@ -10,7 +10,7 @@ import torch
 HERE = Path(__file__).resolve().parent
 WORK = HERE.parent.parent
 PREVIOUS = HERE.parent / "decoder-resolution-2026-11-21"
-sys.path.insert(0, str(WORK / "colorawarenet-joint-model"))
+sys.path.insert(0, str(WORK / "model_code"))
 
 from scripts import audit_fixed_ranges_v106 as factors
 from scripts import eval_range_v101 as ev

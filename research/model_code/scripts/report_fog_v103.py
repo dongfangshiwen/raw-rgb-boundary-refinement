@@ -105,7 +105,7 @@ def package():
 
   python source/score_fog_v103.py --root .
 
-results.json and dense-roads/results.json contain both negative and positive contrasts. Per-frame matrices use group-paired sampling. Native model inference and source fitting require the existing project dependencies and the indicated released checkpoints. Absolute asset checksums, release links, three source seeds and fixed decisions are provided in the manifests. Run the v103 scripts as modules within colorawarenet-joint-model. The zip contains the nine newly fitted move-decision heads. External large checkpoints and the original natural images require their respective sources.
+results.json and dense-roads/results.json contain both negative and positive contrasts. Per-frame matrices use group-paired sampling. Native model inference and source fitting require the existing project dependencies and the indicated released checkpoints. Absolute asset checksums, release links, three source seeds and fixed decisions are provided in the manifests. Run the v103 scripts as modules within model_code. The zip contains the nine newly fitted move-decision heads. External large checkpoints and the original natural images require their respective sources.
 """
     tmp=dest.with_suffix(".part")
     with ZipFile(tmp,"w",ZIP_DEFLATED,compresslevel=4) as z:
