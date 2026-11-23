@@ -1,0 +1,20 @@
+{
+  "python": "3.13.12",
+  "packages": {
+    "torch": "2.11.0+cu128",
+    "torchvision": "0.26.0+cu128",
+    "transformers": "4.57.1",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "Pillow": "11.3.0",
+    "safetensors": "0.8.0"
+  },
+  "gpu": "NVIDIA GeForce RTX 5060 Ti",
+  "pytorch_cuda_build": "12.8",
+  "cudnn_runtime": [
+    9,
+    19,
+    0
+  ],
+  "nvidia_driver": "621.01"
+}

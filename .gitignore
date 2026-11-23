@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+.venv/
+.env
+.env.*
+work/
+assets/
+research/benchmark_data/
+research/colorawarenet-joint-model/results/
+research/colorawarenet-joint-model/runs/
+research/colorawarenet-joint-model/pretrained/
+*.pth
+*.pt
+*.safetensors
+*.npz
+*.bin

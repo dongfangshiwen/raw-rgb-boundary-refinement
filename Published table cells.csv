@@ -1,0 +1,45 @@
+Table,Data row,Numeric column,Row label,Column label,Published value
+4,1,1,Fixed kernel minus bilinear,Mask2Former,"+1.665 [+1.439, +1.919]"
+4,1,2,Fixed kernel minus bilinear,SegFormer-B1,"+1.439 [+1.230, +1.605]"
+4,2,1,Fixed kernel minus Gaussian JBU,Mask2Former,"+0.851 [+0.587, +1.189]"
+4,2,2,Fixed kernel minus Gaussian JBU,SegFormer-B1,"+0.475 [+0.244, +0.749]"
+4,3,1,Original fit minus Gaussian JBU,Mask2Former,"+0.769 [+0.533, +1.040]"
+4,3,2,Original fit minus Gaussian JBU,SegFormer-B1,"+0.568 [+0.309, +0.849]"
+4,4,1,Original fit minus fixed kernel,Mask2Former,"−0.082 [−0.194, −0.010]"
+4,4,2,Original fit minus fixed kernel,SegFormer-B1,"+0.093 [+0.049, +0.130]"
+4,5,1,Color-only refit minus fixed kernel,Mask2Former,"−0.050 [−0.084, −0.028]"
+4,5,2,Color-only refit minus fixed kernel,SegFormer-B1,"−0.024 [−0.040, −0.008]"
+4,6,1,Spatial-only refit minus fixed kernel,Mask2Former,"−0.101 [−0.226, −0.022]"
+4,6,2,Spatial-only refit minus fixed kernel,SegFormer-B1,"+0.061 [+0.021, +0.094]"
+4,7,1,Joint refit minus fixed kernel,Mask2Former,"−0.220 [−0.349, −0.133]"
+4,7,2,Joint refit minus fixed kernel,SegFormer-B1,"+0.013 [−0.028, +0.052]"
+6,1,1,"Mask2Former, original fit",Boundary mIoU change,"+0.798 [+0.624, +0.968]"
+6,1,2,"Mask2Former, original fit",Whole-image mIoU change,"+0.186 [+0.068, +0.296]"
+6,2,1,"Mask2Former, matched refit",Boundary mIoU change,"+0.756 [+0.587, +0.924]"
+6,2,2,"Mask2Former, matched refit",Whole-image mIoU change,"+0.189 [+0.071, +0.299]"
+6,3,1,"SegFormer-B1, original fit",Boundary mIoU change,"+1.259 [+1.096, +1.419]"
+6,3,2,"SegFormer-B1, original fit",Whole-image mIoU change,"+0.359 [+0.279, +0.444]"
+6,4,1,"SegFormer-B1, matched refit",Boundary mIoU change,"+1.205 [+1.051, +1.355]"
+6,4,2,"SegFormer-B1, matched refit",Whole-image mIoU change,"+0.352 [+0.276, +0.432]"
+10,1,1,Original fit minus reference / Boundary,Mask2Former,"+0.506 [+0.363, +0.670]"
+10,1,2,Original fit minus reference / Boundary,SegFormer-B1,"+0.874 [+0.726, +1.000]"
+10,2,1,Original fit minus reference / Whole image,Mask2Former,"+0.128 [+0.051, +0.231]"
+10,2,2,Original fit minus reference / Whole image,SegFormer-B1,"+0.219 [+0.146, +0.319]"
+10,3,1,Original fit minus fixed kernel / Boundary,Mask2Former,"−0.015 [−0.050, +0.021]"
+10,3,2,Original fit minus fixed kernel / Boundary,SegFormer-B1,"+0.025 [+0.001, +0.059]"
+10,4,1,Scale-specific minus shared weights / Boundary,Mask2Former,"−0.004 [−0.006, −0.001]"
+10,4,2,Scale-specific minus shared weights / Boundary,SegFormer-B1,"+0.000 [−0.003, +0.002]"
+10,5,1,Scale-specific minus shuffled / Boundary,Mask2Former,"−0.012 [−0.016, −0.009]"
+10,5,2,Scale-specific minus shuffled / Boundary,SegFormer-B1,"−0.002 [−0.006, +0.002]"
+11,1,1,Near boundary / Mask2Former,Reference,18.032
+11,1,2,Near boundary / Mask2Former,RGB-guided,17.381
+11,1,3,Near boundary / Mask2Former,Difference [95% interval],"−0.651 [−0.854, +0.043]"
+11,2,1,Near boundary / SegFormer-B1,Reference,17.137
+11,2,2,Near boundary / SegFormer-B1,RGB-guided,16.696
+11,2,3,Near boundary / SegFormer-B1,Difference [95% interval],"−0.441 [−0.569, −0.141]"
+11,3,1,All measured / Mask2Former,Reference,36.338
+11,3,2,All measured / Mask2Former,RGB-guided,35.836
+11,3,3,All measured / Mask2Former,Difference [95% interval],"−0.501 [−0.624, −0.134]"
+11,4,1,All measured / SegFormer-B1,Reference,34.933
+11,4,2,All measured / SegFormer-B1,RGB-guided,34.576
+11,4,3,All measured / SegFormer-B1,Difference [95% interval],"−0.357 [−0.513, −0.206]"
