@@ -13,6 +13,15 @@ The decoder uses the original camera image to redistribute neighbouring class sc
 | Recalculate reported results from saved counts | [Numerical replay](reproduce.py) · [Published table cells](Published%20table%20cells.csv) |
 | Find hardware and software versions | [Measured CUDA environment](environment.json) |
 
+## Models used in the experiments
+
+| Part of the paper | Model or operator | Implementation |
+|---|---|---|
+| Source semantic model | Frozen LiDSeg (PIDNet-L), two-scale scores and class-weighted donor colors | [Source decoder](research/model_code/scripts/semantic_subpixel_v94.py) · [Source inference](research/model_code/scripts/predict_calibrated_joint_v99.py) |
+| Transfer to frozen targets | Mask2Former and SegFormer-B1 supply class scores. The decoder uses aligned raw RGB to refine boundaries. | [Score decoder](experiments/S3/decoder.py) · [Backbone inference](experiments/S2/portable/predict.py) |
+| Photographic branch | MCT supplies restored views. The road model selects a local correction and fits a luminance-dependent blend. The BeDDE follow-up calibrates the MCT output separately. | [Road heads](research/model_code/scripts/road_transition_v68.py) · [Luminance fit](research/model_code/scripts/calibrate_tone_v99.py) · [BeDDE calibration](research/model_code/scripts/photo_calibration_v101.py) |
+| Published comparisons | JBU, DySample and SAPA share Mask2Former scores in Table 5. Table 9 uses a separately matched FeatUp fit. | [Table 5 evaluator](research/model_code/scripts/idd_operator_check_v100.py) · [FeatUp fit](research/model_code/scripts/featup_control_v107.py) |
+
 ## Recalculate a table
 
 The manuscript supplement supplies the four numbered archives, including the image manifests, per-frame counts or projected point predictions, fitted parameters and bootstrap records. Extract the outer publication ZIP to a directory such as `supplement` so that it contains `archives/Supplementary Data S1.zip` through `S4.zip`. From the repository root, use Python with NumPy.
@@ -20,11 +29,11 @@ The manuscript supplement supplies the four numbered archives, including the ima
 ```sh
 python -m pip install numpy
 python reproduce.py --list
-python reproduce.py --supplement supplement --table 4 6 10 11
+python reproduce.py --supplement supplement --table 4 5 6 10 11 17
 python reproduce.py --supplement supplement --all
 ```
 
-The launcher checks archive hashes and executes the original numerical replays in a temporary directory. For Tables 4, 6, 10 and 11 it also prints every numerical cell at the precision used in the manuscript. Table 6 replays the RGB-screen exclusions and hash-based selection of the 128 validation identifiers. These computations use CPU and saved measurements. They do not require a dataset download or a GPU.
+The launcher checks archive hashes and executes the original numerical replays in a temporary directory. For Tables 4, 5, 6, 10, 11 and 17 it also prints every numerical cell at the precision used in the manuscript. Table 6 replays the RGB-screen exclusions and hash-based selection of the 128 validation identifiers. These computations use CPU and saved measurements. They do not require a dataset download or a GPU.
 
 ## Apply the original decoder to scores
 
@@ -34,7 +43,7 @@ The small source-fitted colour and spatial coefficients for all three seeds are 
 python predict_scores.py scores.npz aligned_rgb.png native_ids.png --size 720 1280 --method raw --seed 101 --device cuda
 ```
 
-The grid entry point also supports CPU and the fixed kernel. It uses the factorized decoder. Near exact score ties, floating-point evaluation order can change an argmax on some inputs. The quantitative replay uses the original sufficient statistics for each published protocol.
+The grid entry point supports CPU and the fixed kernel. The original and fixed settings use the factorized decoder. Near exact score ties, floating-point evaluation order can change an argmax on some inputs. To apply the matched 19-class FeatUp comparison, use `--method featup --s3-assets work/S3` after expanding the paper supplement. The directory supplies the pinned external implementation and its fitted weights. The quantitative replay uses the original sufficient statistics for each published protocol.
 
 ## Predict from a camera image
 
@@ -50,6 +59,6 @@ Choose `segformer` for the second backbone. The public predictor exposes three s
 
 ## Source fitting and external baselines
 
-The [experiment index](EXPERIMENTS.md) connects each current table to its source and evaluator. `research/model_code/` contains the training and model implementations used in the paper, including the RGB decoder, restoration heads and comparison operators. The study-specific scripts in `research/experiment_exports/` import these implementations. For historical source paths in S1–S4, resolve `scripts/` and `dehaze_seg/` relative to `research/model_code/` in this repository. Research training additionally requires the provider datasets and checkpoints, their manifests, and the staging layout referenced by those scripts. Numerical replay and the two inference entry points above have separate input requirements. The [supplement preparation script](prepare_supplement.py) expands S1–S4 and the nested source diagnostics into a new local directory.
+The [experiment index](EXPERIMENTS.md) connects each current table to its source and evaluator. `research/model_code/` contains the training and model implementations used in the paper, including the RGB decoder, restoration heads and comparison operators. The study-specific scripts in `research/experiment_exports/` import these implementations. Earlier research modules also supply shared data, loss and metric functions. The experiment index identifies the model actually scored in each table. For historical source paths in S1–S4, resolve `scripts/` and `dehaze_seg/` relative to `research/model_code/` in this repository. Research training additionally requires the provider datasets and checkpoints, their manifests, and the staging layout referenced by those scripts. Numerical replay and the two inference entry points above have separate input requirements. The [supplement preparation script](prepare_supplement.py) expands S1–S4 and the nested source diagnostics into a new local directory.
 
 Third-party backbones and benchmark assets are distributed by their respective providers. Model revisions and file hashes for the portable predictor are given in its [asset fetcher](experiments/S2/portable/fetch_assets.py). The exact original measurements, auxiliary fits and published baseline inputs are in the manuscript supplement. The included source-fit coefficients are indexed by seeds 101, 211 and 307.

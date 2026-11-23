@@ -1,4 +1,5 @@
 """Delete one recording at a time and recalculate the paired boundary effect in the existing stress test."""
+import argparse
 from pathlib import Path
 import gzip
 import json
@@ -35,7 +36,13 @@ def compute(rows,official):
     return result
 
 if __name__=="__main__":
-    with gzip.open(DATA/"joint-seg.json.gz","rt",encoding="utf8") as f: rows=json.load(f)
-    res=compute(rows,json.loads((DATA/"joint-test.json").read_text()))
-    (HERE/"recording-sensitivity.json").write_text(json.dumps(res,indent=2),encoding="utf8")
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--data", type=Path, default=DATA, help="S1 source-diagnostics/original/data/joint directory")
+    parser.add_argument("--output", type=Path, default=HERE/"recording-sensitivity.json")
+    args = parser.parse_args()
+    with gzip.open(args.data/"joint-seg.json.gz", "rt", encoding="utf8") as stream:
+        rows = json.load(stream)
+    res = compute(rows, json.loads((args.data/"joint-test.json").read_text(encoding="utf8")))
+    args.output.parent.mkdir(parents=True, exist_ok=True)
+    args.output.write_text(json.dumps(res,indent=2), encoding="utf8")
     print([(c,a["positive_omissions"],a["range"]) for c,a in res.items()])

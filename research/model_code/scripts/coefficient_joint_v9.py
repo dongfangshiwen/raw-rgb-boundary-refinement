@@ -9,7 +9,7 @@ from torch import nn
 import torch.nn.functional as F
 
 from scripts.partial_sharing_v8b import PartialSharing
-from scripts.partial_joint_v7 import partial_segmentation_loss
+from dehaze_seg.losses import partial_segmentation_loss
 from scripts.parallel_joint_v8 import rgb_loss
 
 METHODS={"bias":("bias",False),"free":("free",False),"coupled":("coupled",False),

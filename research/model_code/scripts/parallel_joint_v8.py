@@ -10,7 +10,7 @@ from torch import nn
 import torch.nn.functional as F
 
 from scripts.vision_baseline_v1 import build_model as vision_model
-from scripts.partial_joint_v7 import partial_segmentation_loss
+from dehaze_seg.losses import partial_segmentation_loss
 
 
 @dataclass(frozen=True)

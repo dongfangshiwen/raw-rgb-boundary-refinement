@@ -87,3 +87,16 @@ def segmentation_losses(logits, target, config):
     ce = F.cross_entropy(logits, target)
     dice = dice_loss_from_logits(logits, target, logits.shape[1])
     return dict(seg=config.lam_ce * ce + config.lam_dice * dice, ce=ce, dice_loss=dice)
+
+
+def partial_segmentation_loss(logits, target):
+    """Two-class cross-entropy and soft Dice over labeled pixels; 255 marks unknown pixels."""
+    valid = target != 255
+    if not bool(valid.any()):
+        raise ValueError("No supervised pixels")
+    ce = F.cross_entropy(logits, target, ignore_index=255, reduction="sum") / valid.sum()
+    probabilities = logits.float().softmax(1) * valid[:, None]
+    one_hot = F.one_hot(target.clamp(0, 1), 2).permute(0, 3, 1, 2).float() * valid[:, None]
+    intersection = (probabilities * one_hot).sum((0, 2, 3))
+    denominator = (probabilities + one_hot).sum((0, 2, 3))
+    return ce + 1 - ((2 * intersection + 1e-6) / (denominator + 1e-6)).mean()

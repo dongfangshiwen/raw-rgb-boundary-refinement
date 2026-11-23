@@ -7,7 +7,7 @@ import numpy as np
 import torch
 
 OUT = Path(__file__).resolve().parent
-sys.path.insert(0, str(OUT.parents[1]))
+sys.path.insert(0, str(OUT.parents[2] / "research" / "model_code"))
 from dehaze_seg.utils import set_seed
 from scripts import road_tone_control_v98 as rgb
 from scripts import semantic_subpixel_v94 as sem

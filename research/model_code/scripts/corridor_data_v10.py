@@ -142,10 +142,29 @@ def prepare_data(fold, manifest):
     return result
 
 
+def synthesize(clear, random_generator, strata):
+    """Sample a stratified transmission field and channel-wise airlight."""
+    import torch
+    import torch.nn.functional as F
+
+    n = len(clear)
+    device = clear.device
+    draw = torch.rand(n, generator=random_generator)
+    mean = (0.4 + 0.55 * (strata.float() + draw) / 6).to(device)[:, None, None, None]
+    noise = torch.rand((n, 1, 4, 4), generator=random_generator).to(device) * 2 - 1
+    noise = noise - noise.mean((2, 3), keepdim=True)
+    noise = noise / noise.abs().amax((2, 3), keepdim=True).clamp_min(1e-6)
+    amplitude = 0.5 * torch.minimum(mean - 0.25, 0.95 - mean)
+    transmission = mean + amplitude * F.interpolate(
+        noise, clear.shape[-2:], mode="bilinear", align_corners=False
+    )
+    airlight = (0.75 + 0.25 * torch.rand((n, 3, 1, 1), generator=random_generator)).to(device)
+    return transmission * clear + (1 - transmission) * airlight, transmission, airlight
+
+
 def make_batch(data, own_indices, public_indices, generator, strata):
     import torch
     import torch.nn.functional as F
-    from scripts.train_parallel_joint_v8 import synthesize
     own, public = data["own_train"], data["public_train"]
     indices = (own_indices, public_indices)
     raw = torch.cat([d["raw"][i] for d, i in zip((own, public), indices)]).cuda().float() / 255

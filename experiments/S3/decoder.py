@@ -21,21 +21,32 @@ class AdaptiveConv:
         k=weights.shape[-1]
         return (image.unfold(2,k,1).unfold(3,k,1)*weights[:,None]).sum((-2,-1))
 
-def bilateral(seed,device):
-    file=BASE/"featup-author/upsamplers.py"
-    assert sha256(file.read_bytes()).hexdigest()=="e213e36c1f592c30aebbc527954539c006342f5d1a7fa01e382f5166c6cb0004"
-    code=file.read_text(encoding="utf-8");line="from featup.adaptive_conv_cuda.adaptive_conv import AdaptiveConv"
-    assert code.count(line)==1
+def bilateral(seed, device, assets=None):
+    directory = BASE if assets is None else Path(assets)
+    file = directory / "featup-author/upsamplers.py"
+    if not file.is_file():
+        raise FileNotFoundError(f"Missing FeatUp source in {directory}. Use the expanded S3 directory.")
+    contents = file.read_bytes()
+    if sha256(contents).hexdigest() != "e213e36c1f592c30aebbc527954539c006342f5d1a7fa01e382f5166c6cb0004":
+        raise ValueError(f"Unexpected FeatUp source digest: {file}")
+    code=contents.decode("utf-8");line="from featup.adaptive_conv_cuda.adaptive_conv import AdaptiveConv"
+    if code.count(line) != 1:
+        raise ValueError("The pinned FeatUp module has an unexpected adaptive convolution import")
     ns={"__name__":"featup_pinned","AdaptiveConv":AdaptiveConv}
     exec(compile(code.replace(line,""),str(file),"exec"),ns)
     block=ns["JBULearnedRange"]
     m=nn.Module();m.up1=block(3,19,32,radius=3);m.up2=block(3,19,32,radius=3)
-    weights=torch.load(BASE/f"weights/featup-{seed}.pth",map_location="cpu",weights_only=True)
+    weight_path = directory / f"weights/featup-{seed}.pth"
+    manifest = json.loads((directory / "SHA256SUMS.json").read_text(encoding="utf-8"))
+    expected = manifest[f"weights/featup-{seed}.pth"]
+    if sha256(weight_path.read_bytes()).hexdigest() != expected:
+        raise ValueError(f"FeatUp weights differ from the S3 release: {weight_path}")
+    weights = torch.load(weight_path, map_location="cpu", weights_only=True)
     m.load_state_dict(weights,strict=True)
     return m.to(device).eval()
 
 @torch.inference_mode()
-def decode(scores,rgb,native_size,method="raw",seed=101):
+def decode(scores, rgb, native_size, method="raw", seed=101, *, s3_assets=None):
     if scores.shape[0]!=1 or rgb.shape[:2]!=(1,3):raise ValueError("Expected one image and one score grid")
     z=scores.float();shape=tuple(4*x for x in z.shape[-2:])
     guide=rgb.to(z)
@@ -50,7 +61,7 @@ def decode(scores,rgb,native_size,method="raw",seed=101):
         corr=n.correction(z,prepare(z,quant))
     elif method in ("featup","featup-gated"):
         if z.shape[1]!=19:raise ValueError("The fitted FeatUp comparison used 19 road classes")
-        net=bilateral(seed,z.device);guide=quant.to(z)/255
+        net=bilateral(seed,z.device,s3_assets);guide=quant.to(z)/255
         guide=(guide-z.new_tensor([.485,.456,.406])[None,:,None,None])/z.new_tensor([.229,.224,.225])[None,:,None,None]
         x=z
         for stage in (net.up1,net.up2):

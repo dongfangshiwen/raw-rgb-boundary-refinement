@@ -17,7 +17,8 @@ def main():
     parser.add_argument("output", type=Path, help="Native class IDs as a PNG")
     parser.add_argument("--size", type=int, nargs=2, metavar=("HEIGHT", "WIDTH"), help="Output size, defaulting to the guide size")
     parser.add_argument("--seed", type=int, choices=(101, 211, 307), default=101)
-    parser.add_argument("--method", choices=("raw", "fixed"), default="raw")
+    parser.add_argument("--method", choices=("raw", "fixed", "featup", "featup-gated"), default="raw")
+    parser.add_argument("--s3-assets", type=Path, help="Expanded S3 directory with FeatUp source and weights")
     parser.add_argument("--device", choices=("cpu", "cuda"), default="cpu")
     args = parser.parse_args()
     with np.load(args.scores, allow_pickle=False) as archive:
@@ -35,7 +36,7 @@ def main():
     scores = torch.as_tensor(data, dtype=torch.float32, device=args.device)
     guide = torch.as_tensor(rgb, device=args.device).permute(2, 0, 1)[None].float() / 255
     with torch.inference_mode():
-        labels = decode(scores, guide, shape, method=args.method, seed=args.seed).argmax(1)[0]
+        labels = decode(scores, guide, shape, method=args.method, seed=args.seed, s3_assets=args.s3_assets).argmax(1)[0]
     args.output.parent.mkdir(parents=True, exist_ok=True)
     Image.fromarray(labels.byte().cpu().numpy()).save(args.output)
 

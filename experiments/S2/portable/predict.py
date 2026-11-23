@@ -1,6 +1,6 @@
 """Native semantic IDs and restored RGB for the follow-up two-output model."""
 import argparse
-from hashlib import sha256
+from hashlib import file_digest
 import importlib.util
 import json
 from pathlib import Path
@@ -10,19 +10,24 @@ from PIL import Image, ImageOps
 import torch
 import torch.nn.functional as F
 from transformers import Mask2FormerForUniversalSegmentation, SegformerConfig, SegformerForSemanticSegmentation
+from fetch_assets import FILES, verify
 from range_decoder_v101 import RangeDecoder, prepare
 
 HERE=Path(__file__).resolve().parent
-MCT_SHA="225ce2d00d1cd8f0a7aabf5dc09f020ee34636cc942aa8b1a87496506224e304"
-MCT_SOURCE="56712bf3bb949d5c4c5a068d8a301b8057179c828a5a1acfb813af373e8bf207"
-MASK_SHA="489e8dcd9b46f991ba0daa00a9dc3d780094168937dad3ff3a1c0dd884664754"
-SEG_SHA="9a7c40538e41d92f93ad6501d54e6333833a1d96bda7b0906c7255240e927832"
 PALETTE=np.array([[128,64,128],[244,35,232],[70,70,70],[102,102,156],[190,153,153],[153,153,153],
                   [250,170,30],[220,220,0],[107,142,35],[152,251,152],[70,130,180],[220,20,60],[255,0,0],
                   [0,0,142],[0,0,70],[0,60,100],[0,80,100],[0,0,230],[119,11,32]],dtype=np.uint8)
 
 def filehash(p):
-    with p.open("rb") as f:return __import__("hashlib").file_digest(f,"sha256").hexdigest()
+    with p.open("rb") as stream:
+        return file_digest(stream, "sha256").hexdigest()
+
+
+def verify_inputs(directory, family, names):
+    digests = FILES[family][2]
+    for name in names:
+        if not verify(directory / name, digests[name]):
+            raise ValueError(f"Missing or mismatched {family} input: {directory / name}")
 
 def resize(x,dims,antialias=False):
     return F.interpolate(x,dims,mode="bilinear",align_corners=False,antialias=antialias)
@@ -33,7 +38,7 @@ def shorter(x,long_side):
 
 def mct_from(directory):
     src=directory/"models/dehazeformer.py";weights=directory/"saved_models/dehazeformer.pth"
-    assert filehash(src)==MCT_SOURCE and filehash(weights)==MCT_SHA
+    verify_inputs(directory, "mct", ("models/dehazeformer.py", "saved_models/dehazeformer.pth"))
     spec=importlib.util.spec_from_file_location("official_mct",src)
     code=importlib.util.module_from_spec(spec);spec.loader.exec_module(code)
     class MCT(code.MCT):
@@ -75,19 +80,20 @@ def predict(image_path,out,assets,backbone="mask2former",seed=101,photo_fold="al
     p=json.loads((fit_dir/"photo-weights.json").read_text(encoding="utf-8"))
     alpha=torch.sigmoid(raw.new_tensor(p["models"][f"{photo_fold}/scalar"]["bias"]))
     recovered=raw+alpha*(base-raw)
-    folder=assets/backbone
+    if backbone not in ("mask2former", "segformer"):
+        raise ValueError(f"Unknown backbone {backbone}")
+    folder = assets / backbone
+    verify_inputs(folder, backbone, FILES[backbone][2])
     prep=json.loads((folder/"preprocessor_config.json").read_text(encoding="utf-8"))
     mean,std=(tensor.new_tensor(prep[k])[None,:,None,None] for k in ("image_mean","image_std"))
     x=shorter(tensor,512);h,w=x.shape[-2:];pad=(0,(-w)%32,0,(-h)%32)
     model_in=F.pad((x-mean)/std,pad)
     if backbone=="mask2former":
-        assert filehash(folder/"model.safetensors")==MASK_SHA
         net=Mask2FormerForUniversalSegmentation.from_pretrained(str(folder),local_files_only=True,use_safetensors=True).cuda().eval()
         valid=F.pad(torch.ones((1,h,w),device="cuda",dtype=torch.long),pad)
         with torch.autocast("cuda",dtype=torch.bfloat16):q=net(pixel_values=model_in,pixel_mask=valid)
         z=semantic_scores(q)
     else:
-        assert filehash(folder/"pytorch_model.bin")==SEG_SHA
         net=SegformerForSemanticSegmentation(SegformerConfig.from_pretrained(str(folder),local_files_only=True)).cuda().eval()
         net.load_state_dict(torch.load(folder/"pytorch_model.bin",map_location="cpu",weights_only=True))
         with torch.autocast("cuda",dtype=torch.bfloat16):z=net(pixel_values=model_in).logits.float()

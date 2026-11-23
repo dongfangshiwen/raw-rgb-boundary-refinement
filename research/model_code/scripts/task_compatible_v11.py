@@ -14,7 +14,7 @@ import torch.nn.functional as F
 from scripts.corridor_data_v10 import REPO
 from scripts.geometry_visibility_v10 import GeometryVisibilityJoint
 from scripts.parallel_joint_v8 import conv_block, rgb_loss
-from scripts.partial_joint_v7 import partial_segmentation_loss
+from dehaze_seg.losses import partial_segmentation_loss
 
 PRETRAINED = REPO / "pretrained/mit-b0-imagenet"
 

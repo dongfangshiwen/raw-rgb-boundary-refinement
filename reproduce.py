@@ -55,7 +55,8 @@ def run_job(job,folder):
     original=None
     if job=='bdd':
         original=json.loads((folder/'semantic-results.json').read_text('utf8'))
-    env=dict(os.environ,PYTHONUTF8='1',PYTHONIOENCODING='utf-8')
+    # The original numerical checks use assertions even when the caller enables optimization.
+    env = dict(os.environ, PYTHONUTF8='1', PYTHONIOENCODING='utf-8', PYTHONOPTIMIZE='0')
     result=subprocess.run([sys.executable,str(program),*args],cwd=program.parent,env=env,
                           stdout=subprocess.PIPE,stderr=subprocess.PIPE,encoding='utf8',errors='replace')
     if result.returncode:

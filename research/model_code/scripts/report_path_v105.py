@@ -1,4 +1,5 @@
 """Publication-style figures from actual predictions and a Chinese evidence report."""
+from functools import cache
 from html import escape
 from pathlib import Path
 import numpy as np
@@ -10,13 +11,18 @@ from scripts import score_path_v104 as stats
 
 ROOT=stats.DEFAULT
 EXT=ROOT/"manuscript-extension"
-V=stats.read(EXT/"results-view-audited.json")["panels"]
-G=stats.read(ROOT/"results.json")["panels"]
 colors=np.array([(128,64,128),(244,35,232),(70,70,70),(102,102,156),(190,153,153),(153,153,153),(250,170,30),
                  (220,220,0),(107,142,35),(152,251,152),(70,130,180),(220,20,60),(255,0,0),(0,0,142),(0,0,70),
                  (0,60,100),(0,80,100),(0,0,230),(119,11,32)],np.uint8)
 
-def group(key,model,reg="boundary"):return V[key]["suites"][model][reg]
+@cache
+def view_panels():
+    return stats.read(EXT / "results-view-audited.json")["panels"]
+
+
+def group(key, model, reg="boundary"):
+    return view_panels()[key]["suites"][model][reg]
+
 def metric(key,model,reg="boundary"):return group(key,model,reg)["targets"][model]
 def interval(c):return f'{c["pp"]:+.3f} [{c["ci95"][0]:+.3f}, {c["ci95"][1]:+.3f}]' if c["ci95"] else f'{c["pp"]:+.3f}'
 
@@ -80,6 +86,7 @@ def table(headers,rows):
                   '<tr>'+''.join('<td>'+escape(str(v))+'</td>' for v in r)+'</tr>' for r in rows)+'</tbody></table></div>'
 
 def report():
+    guide_panels = stats.read(ROOT / "results.json")["panels"]
     forest();example()
     ci=stats.read(EXT/"class-influence.json");ev=stats.read(EXT/"inference-checks.json")
     fig=stats.read(ROOT/"example-metadata.json")
@@ -110,7 +117,7 @@ def report():
             traffic.append([label,model,view["groups"],*[interval(c[a]) for a in ("path - paper","path - shifted","paper_segfix - paper","paper_segfix - segfix","paper_segfix - gaussian_segfix")]])
     gaussian=[]
     for tag,title in (("new_random","BDD100K，第一批全天气"),("new_fog","BDD100K，新筛出的道路雾"),("old_fog","BDD100K，上轮道路雾"),("idd","IDD-AW，已用录像的新一轮评估"),("weatherproof","WeatherProof，上轮对齐三类")):
-        b=G[tag]["ontologies"]["primary"]["boundary"]
+        b=guide_panels[tag]["ontologies"]["primary"]["boundary"]
         for t in ("mask2former","segformer"):
             m=b["targets"][t];gaussian.append([title,t,b["groups"],*[f'{m["scores"][k]:.3f}' for k in ("gaussian","endpoint","path")],interval(m["contrasts"]["path - gaussian"]),interval(m["contrasts"]["path - shifted"])])
     design=table(["实验","源训练","新增参数 / 权重","外部验证"],[

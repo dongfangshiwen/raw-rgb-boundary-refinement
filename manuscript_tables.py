@@ -3,6 +3,7 @@ import csv
 import hashlib
 import json
 from pathlib import Path
+from zipfile import ZipFile
 
 BACKBONES = ("mask2former", "segformer")
 
@@ -29,6 +30,21 @@ def table_4(work):
     for arm in ("colour_only", "spatial_only", "joint"):
         rows.append([interval(fitted[b]["regions"]["boundary"]["compared_to_fixed_pp"][arm])
                      for b in BACKBONES])
+    return rows
+
+
+def table_5(work):
+    operators = read(work / "S1/idd/operator-comparisons.json")["metrics"]
+    regions = ("boundary", "full")
+    reference = operators["jbu"]
+    rows = [[f'{reference[region]["ours"]:.3f}' for region in regions]]
+    for method in ("jbu", "dysample", "sapa_context"):
+        row = []
+        for region in regions:
+            metric = operators[method][region]
+            lo, hi = metric["ci95"]
+            row.extend((f'{metric["reference"]:.3f}', f'{metric["delta"]:+.3f} [{lo:+.3f}, {hi:+.3f}]'))
+        rows.append(row)
     return rows
 
 
@@ -66,7 +82,24 @@ def table_11(work):
     return rows
 
 
-RECORDED_TABLES = {4: table_4, 6: table_6, 10: table_10, 11: table_11}
+def table_17(work):
+    path = work / "S1/source-diagnostics/Original supplementary archive.zip"
+    with ZipFile(path) as archive:
+        results = json.loads(archive.read("data/joint/joint-test.json"))
+    rows = []
+    for cohort in ("MUSES_t70", "MUSES_t40"):
+        photo = results["photos"][cohort]["scores"]
+        full = results["full"][cohort]["scores"]["curve/fixed"]
+        boundary = results["edge"][cohort]
+        delta = boundary["effects"]["curve-fixed_minus_mean"]
+        lo, hi = delta["ci95"]
+        rows.append([f'{photo["psnr"]["curve"]:.2f}', f'{photo["deltaE"]["curve"]:.2f}',
+                     f'{full:.2f}', f'{boundary["scores"]["curve/fixed"]:.2f}',
+                     f'{delta["diff"]:+.3f}', f'[{lo:.3f}, {hi:.3f}]'])
+    return rows
+
+
+RECORDED_TABLES = {4: table_4, 5: table_5, 6: table_6, 10: table_10, 11: table_11, 17: table_17}
 
 
 def show_verified_cells(work, published, selected):

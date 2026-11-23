@@ -14,7 +14,7 @@ import torch.nn.functional as F
 
 from scripts.coefficient_joint_v9 import CoefficientJoint, apply_fields
 from scripts.parallel_joint_v8 import conv_block, rgb_loss
-from scripts.partial_joint_v7 import partial_segmentation_loss
+from dehaze_seg.losses import partial_segmentation_loss
 
 
 @dataclass(frozen=True)

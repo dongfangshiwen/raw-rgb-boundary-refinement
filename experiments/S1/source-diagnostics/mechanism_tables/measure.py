@@ -9,7 +9,7 @@ import torch
 
 HERE = Path(__file__).resolve().parent
 SOURCE = HERE.parent
-sys.path.insert(0, str(SOURCE.parents[1]))
+sys.path.insert(0, str(SOURCE.parents[2] / "research" / "model_code"))
 from scripts import joint_tone_prototype_v99 as joint
 from scripts import real_detail_data_v24 as paired
 from scripts import relative_utility_v56 as utility
