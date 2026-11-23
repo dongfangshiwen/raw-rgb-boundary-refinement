@@ -11,11 +11,11 @@ import torch
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("project", type=Path, help="Directory containing the scripts package (research/model_code in the repository)")
+    parser.add_argument("project", type=Path, help="Repository checkout containing boundary_refinement")
     parser.add_argument("output", type=Path)
     args = parser.parse_args()
     sys.path.insert(0, str(args.project.resolve()))
-    from scripts import eval_range_v101 as ev
+    from boundary_refinement.evaluation.semantic import range_transfer as ev
 
     ev.setup.configure_cuda()
     row = ev.rows("bddval")[0]

@@ -8,8 +8,8 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 OUT=Path(__file__).resolve().parent
-sys.path.insert(0,str(OUT.parents[2] / "research" / "model_code"))
-from scripts import joint_tone_prototype_v99 as j
+sys.path.insert(0,str(OUT.parents[2]))
+from boundary_refinement.evaluation.paired import muses_transmission as j
 
 @torch.inference_mode()
 def run():

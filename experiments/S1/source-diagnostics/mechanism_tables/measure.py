@@ -9,11 +9,11 @@ import torch
 
 HERE = Path(__file__).resolve().parent
 SOURCE = HERE.parent
-sys.path.insert(0, str(SOURCE.parents[2] / "research" / "model_code"))
-from scripts import joint_tone_prototype_v99 as joint
-from scripts import real_detail_data_v24 as paired
-from scripts import relative_utility_v56 as utility
-from scripts.train_regional_guidance_v18 import configure_cuda
+sys.path.insert(0, str(SOURCE.parents[2]))
+from boundary_refinement.evaluation.paired import muses_transmission as joint
+from boundary_refinement.data import real_detail_data as paired
+from boundary_refinement.models.restoration import local_utility as utility
+from boundary_refinement.training.train_regional_guidance import configure_cuda
 
 def array(t):
     return t.detach().cpu().numpy()

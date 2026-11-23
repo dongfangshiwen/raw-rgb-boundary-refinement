@@ -5,10 +5,9 @@ __pycache__/
 .env.*
 work/
 assets/
-research/benchmark_data/
-research/model_code/results/
-research/model_code/runs/
-research/model_code/pretrained/
+
+# Local datasets and checkpoints retained from earlier checkouts.
+research/
 *.pth
 *.pt
 *.safetensors

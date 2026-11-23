@@ -7,11 +7,11 @@ import numpy as np
 import torch
 
 OUT = Path(__file__).resolve().parent
-sys.path.insert(0, str(OUT.parents[2] / "research" / "model_code"))
-from dehaze_seg.utils import set_seed
-from scripts import road_tone_control_v98 as rgb
-from scripts import semantic_subpixel_v94 as sem
-from scripts.train_regional_guidance_v18 import configure_cuda
+sys.path.insert(0, str(OUT.parents[2]))
+from boundary_refinement.utils import set_seed
+from boundary_refinement.models.restoration import road_tone_control as rgb
+from boundary_refinement.models.operators import donor_colors as sem
+from boundary_refinement.training.train_regional_guidance import configure_cuda
 
 
 def save(name, data):

@@ -10,10 +10,10 @@ from PIL import Image
 import torch
 
 OUT = Path(__file__).resolve().parent
-sys.path.insert(0,str(OUT.parents[2] / "research" / "model_code"))
-from scripts import joint_tone_prototype_v99 as j
-from scripts import evaluate_prototype_risk_v97 as diag
-from scripts.matched_recall_v88 import capture_id
+sys.path.insert(0,str(OUT.parents[2]))
+from boundary_refinement.evaluation.paired import muses_transmission as j
+from boundary_refinement.evaluation.semantic import evaluate_prototype_risk as diag
+from boundary_refinement.models.segmentation.matched_recall import capture_id
 
 ARMS = ("author_raw","bilinear","window_fixed","curve_mean","curve_fixed")
 SEEDS = j.SEEDS

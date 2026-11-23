@@ -121,12 +121,12 @@ def aggregate(raw):
 @torch.inference_mode()
 def main():
     parser=argparse.ArgumentParser()
-    parser.add_argument("--repo",type=Path,required=True)
+    parser.add_argument("--repo", type=Path, required=True, help="Repository checkout containing boundary_refinement")
     parser.add_argument("--audit",type=Path,required=True)
     parser.add_argument("--out",type=Path,required=True)
     args=parser.parse_args()
     sys.path.insert(0,str(args.repo.resolve()))
-    from scripts import eval_range_v101 as ev
+    from boundary_refinement.evaluation.semantic import range_transfer as ev
     ev.setup.configure_cuda()
     args.out.mkdir(parents=True,exist_ok=True)
     rows_by_id={r["id"]:r for r in ev.read(ev.IDD/"evaluation.json")["rows"] if "fog" in r["cohorts"]}

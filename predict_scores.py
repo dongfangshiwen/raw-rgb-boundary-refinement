@@ -1,13 +1,11 @@
 """Apply the source-fitted raw-RGB operator to a frozen, spatially aligned class-score grid."""
 import argparse
 from pathlib import Path
-import sys
 import numpy as np
 from PIL import Image
 import torch
 
-sys.path.insert(0, str(Path(__file__).resolve().parent / "experiments" / "S3"))
-from decoder import decode
+from boundary_refinement.inference.score_grid import decode
 
 
 def main():

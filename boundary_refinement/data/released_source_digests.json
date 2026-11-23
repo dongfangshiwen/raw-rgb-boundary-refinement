@@ -1,0 +1,284 @@
+{
+  "boundary_refinement/baselines/mcaf_reference.py": {
+    "current": "4ce5ecb38ddb386f0512fca71811d13f2f51e8037121ad3dc886d66f84c6466d",
+    "released": [
+      "c1bf500f32ae98859742149da99ceccb5e27e37cd419eab911473fea48575b7f"
+    ]
+  },
+  "boundary_refinement/data/cohorts/fresh_real.py": {
+    "current": "15e95c28af0f4840f8487a6db76ab5ae0fa998c3f73bfe339ceb3a2210744382",
+    "released": [
+      "b990bd10cfa5bc4bf701ce09a3996cfcec6f78f6780c20b83ccdddf577485050"
+    ]
+  },
+  "boundary_refinement/data/kitti_fog.py": {
+    "current": "4b7c8c2341c3f2eee8b8e1771d2afcc4e424eb6a71ff02d26ed215fce253e880",
+    "released": [
+      "f28b878da8d4c625e44f1d69d150d3442e923eb800028c0cae8d06a29e89c436"
+    ]
+  },
+  "boundary_refinement/data/staging/stage_muses_rain.py": {
+    "current": "74e34be8be7f7509d9933f5b22c2d01b65cffb6ea1df50de84799dd4704e94ec",
+    "released": [
+      "65047e6a673b61878df5d4d3ab1f3c0bb80afbff20f692f85549bb9ad366704e"
+    ]
+  },
+  "boundary_refinement/data/staging/stage_muses_snow.py": {
+    "current": "29f0489d71cec77fa0a8df2af07d7cb54feac5478750d1fe1ad4ab402ea87c14",
+    "released": [
+      "b5a86075cf88be95404b246730f5771c9afac9d326cfc705dc2c8cde482906cd"
+    ]
+  },
+  "boundary_refinement/evaluation/controls/audit_tone_prototype.py": {
+    "current": "07ed1b1d3fe04815e38a6a897e3699793a460426e4386100b28fdd6eeb4b3258",
+    "released": [
+      "253aac4d42fb52a6e096acecebaf11a91709c3f3df692d0d0e63d4c321bd9bae"
+    ]
+  },
+  "boundary_refinement/evaluation/controls/matched_featup.py": {
+    "current": "b29df7d66009d6a4ebeec13720ff4016a6b70bf51af5859aef36cedd9bb8ca6f",
+    "released": [
+      "7598d5f8e583dc8a0f27f7970b7d331726fca2ac15c15867beb2f691b647e91c"
+    ]
+  },
+  "boundary_refinement/evaluation/paired/muses_transmission.py": {
+    "current": "e57dd421999f6336ac73197ccbef9b68133ebf80108f80b3623b4bbd3f0aadf4",
+    "released": [
+      "01ff61c7df0684c27de848c2836eb5fe73767cf1bb3401abfc58d90d0ebd8ad3"
+    ]
+  },
+  "boundary_refinement/evaluation/paired/tonal_agreement.py": {
+    "current": "453ab7bf255de0609ea315ec1f395ee266d6f27f0b64bec1a0957c130678ea56",
+    "released": [
+      "e01902fe0f3d09d923be89ac0deffba129ded7bccab15c6791931183f7c4c5a8"
+    ]
+  },
+  "boundary_refinement/evaluation/photographic/evaluate_paired_basis.py": {
+    "current": "4607bcfa39be6685cfd44d3701373ca3dcdbbd8c3edfc03a373ab8c9ae1dd35e",
+    "released": [
+      "8c157080d9cb28a6fa907fff9849b73f1740cc62f2e0dc540bb7af28e5096982"
+    ]
+  },
+  "boundary_refinement/evaluation/photographic/paired_haze_benchmarks.py": {
+    "current": "6c77025e4a6bef5fc67f6d11aa3e344ec97c5132bdef8ccf88ab2fd331e53780",
+    "released": [
+      "cdadef3ffe0103faf70e9bea4a7cd26125a9710a6a9bfe34f60d2e2de73c41ab"
+    ]
+  },
+  "boundary_refinement/evaluation/semantic/evaluate_prototype_risk.py": {
+    "current": "f178a37e7d4678de7fbf813a8a6572f62afa2ffd4be2899d62794bac518de97e",
+    "released": [
+      "3e1d343df221c6120d30614192e066db0c1e5fabb119c9ce14eedf1a4b5c0f7e"
+    ]
+  },
+  "boundary_refinement/evaluation/semantic/real_fog_correction.py": {
+    "current": "f80aaf41983c22a0de94af9dca973cfdddade599cd065ebfd7a9438610c5f4be",
+    "released": [
+      "a755f22991f04edd9061a2a64098bdbabdd225faecc17d0daad779e58b628d10"
+    ]
+  },
+  "boundary_refinement/evaluation/semantic/resolution_interaction.py": {
+    "current": "caf8d33ba23585e354a684aeafdaea1fa0672b6c7e0ac972a2de258c0552205c",
+    "released": [
+      "0db103da5b82da3160f9c732e01c42ab7cadda582c6ca44a395a419026e1eb14"
+    ]
+  },
+  "boundary_refinement/evaluation/semantic/restoration_cue.py": {
+    "current": "c420a31e4971e8b8af0f50788879fe88821470f02b6be68b9b6a83a63c786e9c",
+    "released": [
+      "f2118bf58cfc71ae89e74c96bfe27387b6a630af2f3a91fe57d916916e3c461e"
+    ]
+  },
+  "boundary_refinement/evaluation/semantic/spatial_restoration.py": {
+    "current": "33d8555453de9029233f483289bacb6b04df72b378b51d2a3dece87224a304cc",
+    "released": [
+      "e46112747bd6e6e4fbc96f9ac2b0c2dcf42525db153472e1e229399a7bb9098c"
+    ]
+  },
+  "boundary_refinement/evaluation/semantic/weatherreasonseg.py": {
+    "current": "7395b804521b9bce7cbddba7d2e99accaa092a3a93c21b65d979e270a34f37cb",
+    "released": [
+      "dd52fc46ecdd043fa010c5892b7f07783f00dd59631ce08b6de3252c5d246b59"
+    ]
+  },
+  "boundary_refinement/inference/lidseg_restoration.py": {
+    "current": "32535c308be292d097b88b804a72aafb4f801562f27c9f321dd0dfdbc488261d",
+    "released": [
+      "8e1e7774b376e8de68d0a45d9931bffafafe0f500af4e326d662a748b679e1d9"
+    ]
+  },
+  "boundary_refinement/models/operators/donor_colors.py": {
+    "current": "5cb3a31c315731914319575bc55971d70de3bf702ea6bf4c6e340b6b8c80f20e",
+    "released": [
+      "805fa2da92dfd7e769903082d66bfe5a5ce6f5c6542d53d1b9141317be719aea"
+    ]
+  },
+  "boundary_refinement/models/operators/sapa.py": {
+    "current": "4b37215704d4a51d678e272564199c401ee25a816c58ecf5051f6604ba09f778",
+    "released": [
+      "9cd5d39c00fb994f7d2b64aae449be26db562ca905544afb7f9847200e086ac6"
+    ]
+  },
+  "boundary_refinement/models/operators/subpixel_transport.py": {
+    "current": "bf610eccf39e834c735d444b71c373816b913efb4b0dbf39ee30a64b926e75bf",
+    "released": [
+      "e445cbcda62ddfa42eb1068408ff179b3e30785e80e55465d4bfe3974c008fff"
+    ]
+  },
+  "boundary_refinement/models/restoration/bounded_tone.py": {
+    "current": "e78807a85a38d505d26a05bb1eaac4883ae13d114dd3a7ecc3a1a8127c537e4a",
+    "released": [
+      "f9aaab4142ed339323b05897ce4f54795be99cab3ec33a3efaa904c2d8c6b650"
+    ]
+  },
+  "boundary_refinement/models/restoration/complementary_rgb.py": {
+    "current": "dd7e4e630213c70773222ff38678b7382760230ad3ea14c8099193183cea5b6d",
+    "released": [
+      "8e75d407905f22158279edc40c65ffaa787dc4449f85350e074c963b442a9101"
+    ]
+  },
+  "boundary_refinement/models/restoration/controlled_rgb_band.py": {
+    "current": "7f74a00a2ea6352568f24662d8cff684aa39623d72b3a4319168362728750941",
+    "released": [
+      "070f2dcda774888748f0f5cd117830509977ab3ec0662944b1a68fdaa2258428"
+    ]
+  },
+  "boundary_refinement/models/restoration/edge_projection.py": {
+    "current": "79ce192fa3002f11b546ea3ba8daf748afa402c8731064aa21d0dff8f5877275",
+    "released": [
+      "9ab4af086d2233ee2a90ce9fd097322df50897f1c5d019eb96c1635cfb9618c6"
+    ]
+  },
+  "boundary_refinement/models/restoration/factorial_restoration.py": {
+    "current": "f1f80ab86103567d80df94b52c0cfd74c371eb141a2a15b3603ff59677690e3c",
+    "released": [
+      "a999ea90223f21b9454490be8e313d8a69a0e3c9292c5ff129b39a04621ed7a8"
+    ]
+  },
+  "boundary_refinement/models/restoration/local_utility.py": {
+    "current": "363470f044163b61dba1d394f2b5dbc4aba1472f3a28f3eca99f3724e15ab02b",
+    "released": [
+      "46f4fa9eaefb7fb639082c28c5b5ca252ce967675eb449c149f113a0d9a8f68a"
+    ]
+  },
+  "boundary_refinement/models/restoration/region_restore.py": {
+    "current": "1bd648d3de0ce40df4f4443eb031c2565071ba9bb66c643b044a46160fc17d1f",
+    "released": [
+      "3ed00bf2814481cd0cfcddc23bbc1c369d9c676bbb939a73f846219797a4eac5"
+    ]
+  },
+  "boundary_refinement/models/restoration/road_tone_control.py": {
+    "current": "cb23aa15dc3f5d61a3756d9a6a186aa4ad6d7cd5ce53b7340cc8abe0d46a21d4",
+    "released": [
+      "12d61d125c95b0031282f1a2b4e2e59c3a309686a0534e021c047ad0f3493838"
+    ]
+  },
+  "boundary_refinement/models/restoration/single_anchor_student.py": {
+    "current": "e58f3ed28876c9abce6adb9a36426b27e05fbab11ddab1b4e84ae5830774d33e",
+    "released": [
+      "7036cc0fe0771c7bbaa646cc497f68f587a2250533e8c17f0342b1180b5422c7"
+    ]
+  },
+  "boundary_refinement/models/restoration/strong_anchor_color.py": {
+    "current": "8884c3ea6393d1c3c74cb0d3310b603d6fe06ba252c765a8e6813119e1f2de2c",
+    "released": [
+      "ff36ec198a6308a7146bc8412ca4c0d1f1a834a5ae7380b94d35f207fa7c5815"
+    ]
+  },
+  "boundary_refinement/models/restoration/tonal_window.py": {
+    "current": "d0001aa26c282664671add8f6f33379c01711e2f5d5aecfc6cea4be3d009deeb",
+    "released": [
+      "eec73d4a99b3c1bb38b6b160393bc05726b13a913dd5492934f5331aba6665c2"
+    ]
+  },
+  "boundary_refinement/models/segmentation/contrastive_response.py": {
+    "current": "ea22cbe3d578815588840b026bd3d133243143247da0f1de844b30d550a5c559",
+    "released": [
+      "24dc59094ae4bac36617a5fc96b4df2eb452c5156abb38b0448846fc92a78e2d"
+    ]
+  },
+  "boundary_refinement/models/segmentation/false_positive_constraint.py": {
+    "current": "c9e52e7095d1d58006d4554b12c0f7a1fe8e013fc3e6fa8bd4143e8642024987",
+    "released": [
+      "30d5538161b5664042d479d72999a3a0cace83b3c4c2ccfac9c14645879f7942"
+    ]
+  },
+  "boundary_refinement/models/segmentation/ranked_negatives.py": {
+    "current": "44abbaa8b08eeddde2af2020ba91df134e191bab85ac71d9ee86c707b6fd911b",
+    "released": [
+      "6bfefb6c550973c46ae8d384a4d5ac30f7239a2446fecc4137acdc74ae9bae97"
+    ]
+  },
+  "boundary_refinement/models/segmentation/recall_constraint.py": {
+    "current": "2587e38e8e89ecbe34ce8b3d731b775a90917b8f926d835ec3454a390869a82b",
+    "released": [
+      "a1b8d83350934646b058b6007c9e525c67c6ede0c3c6628aa4eab7e376d22c94"
+    ]
+  },
+  "boundary_refinement/models/segmentation/restoration_affinity.py": {
+    "current": "27be4846caec3626fc08fc77bb131d417ecb9dc7bef44db68073220a46199c6d",
+    "released": [
+      "9fe824642ecbcd646865a18031aa505baf2032da543e89a559cce013cdaa28a8"
+    ]
+  },
+  "boundary_refinement/models/segmentation/restoration_descent.py": {
+    "current": "54d38e19f5f7eeb19acf5f0a3498b30855b20c38e72e2796d3aa1f786b0aa3bb",
+    "released": [
+      "abb0516e9ac8dae033e6333cdf9449871a535491ef586cd255a61c8580286c4d"
+    ]
+  },
+  "boundary_refinement/models/segmentation/sparse_recovery.py": {
+    "current": "df1083346a2c245b76f28d4458a4f10a631a9b759ce8fbee9e2e892901e09799",
+    "released": [
+      "555152ebc7ddac3803288b5df11f35d48e99a615397b59c9c0a9fe37b0c80561"
+    ]
+  },
+  "boundary_refinement/training/color_axis.py": {
+    "current": "73e785d7b3d325eafd0b86e96d988ff58e3499ce2dfc4e47e02c90831fc61780",
+    "released": [
+      "f1c92d1a37ff9cb326512d69ec776600fc84b011326f5dfe0eddcd518b2433e8"
+    ]
+  },
+  "boundary_refinement/training/decision_overlap.py": {
+    "current": "864d986a4c8f44013ac0460f922cdfd5f3db87e20cf709156a8cbd2ed2549576",
+    "released": [
+      "2fdbe29612169bc68bc8363b36892da2ea654b762776ee82667840a8c825eafc"
+    ]
+  },
+  "boundary_refinement/training/idd_peer_setfit.py": {
+    "current": "8968c2b4bd4bbfc9d44a7784b5729d4a9ec81b50626a4e62d2852c2ed1a6794f",
+    "released": [
+      "6c2f7e4cd433a25ebf9a30759cfbaf219e28ebdc62795b6ae1d8578c5f418eaf"
+    ]
+  },
+  "boundary_refinement/training/luminance_blend.py": {
+    "current": "342077ca7a3089480e86122c57dae942645de7e1c26d938bd1ede8985832fae8",
+    "released": [
+      "0e97fafc20598dc0f0f8c8d95108122559eef2c427d18145ff1992a084315f4d"
+    ]
+  },
+  "boundary_refinement/training/orthogonal_risk.py": {
+    "current": "0b525c1a33e1bf3be8b0db4df8519fde6b466179c8dfa4df8f1df5723e51b7f6",
+    "released": [
+      "28351caf0d58815b87c2583e66627d219c85bd64bd607b2f8f0ba114d6ddb931"
+    ]
+  },
+  "boundary_refinement/training/overlap_quadratic.py": {
+    "current": "4f5fec03be4f1e0483f01dc0cdb5ee20408c16bd6a414694fddb00b462807844",
+    "released": [
+      "c7b38c96556590fbd9380f99fa4766614b968eca3eef6e024bc3e8797a7117f9"
+    ]
+  },
+  "boundary_refinement/training/prototype_risk.py": {
+    "current": "cae1dab80b111c68cb9a4622ef14ac7948312f42ec6547d8850f9a938b59b764",
+    "released": [
+      "a0283fb0367439b92e325f5c5ba148944098ce999a5436c982d80953c2269b01"
+    ]
+  },
+  "boundary_refinement/training/road_heads.py": {
+    "current": "6afebac1d98ae9c24137e5e3f484ee415fa45b010c7e4683516f6d10c018bbd8",
+    "released": [
+      "45fdc50617a1302456542af22a7d2e773d04eebcbc8bdc9d2461decb10136e6c"
+    ]
+  }
+}
