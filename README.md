@@ -67,7 +67,7 @@ python -m boundary_refinement.data.model_assets --backbone both --output assets
 python -m boundary_refinement.inference.camera input.png predictions --assets assets --fit-dir work/S2/portable --backbone mask2former --decoder original --seed 101
 ```
 
-Choose `segformer` for the second backbone. The public predictor exposes three semantic conditions. `original` reuses the coefficients fitted with LiDSeg, `fitted` applies the matched four-range MUSES refit, and `fixed` uses the unfitted initialization. All three return a native-resolution class-ID mask, a colour mask, the BeDDE-calibrated MCT photograph and a manifest of output hashes. For the road-trained local utility and luminance heads shown in the original photographic branch, use the separate source predictor linked above and its fifteen fitted-head files in expanded S1. The two photographic configurations have distinct results in the manuscript.
+Choose `segformer` for the second backbone. To reproduce the original LiDSeg fit on a camera image, select `--decoder original`, as in the example. Omitting that option selects `fitted`, the matched four-range MUSES refit used in Fig. 17. Use `fixed` for the unfitted initialization. All three return a native-resolution class-ID mask, a colour mask, the BeDDE-calibrated MCT photograph and a manifest of output hashes. For the road-trained local utility and luminance heads shown in the original photographic branch, use the separate source predictor linked above and its fifteen fitted-head files in expanded S1. The two photographic configurations have distinct results in the manuscript.
 
 ## Source fitting and external baselines
 
